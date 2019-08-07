@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -19,6 +20,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -26,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.socialnetwork.Login.LoginActivity;
 import com.example.socialnetwork.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -540,4 +545,51 @@ public class ProfileFragment extends Fragment {
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent,IMAGE_PICK_GALLERY_REQUEST_CODE);
     }
+
+
+    private void CheckUserStatus()
+    {
+        FirebaseUser user=firebaseAuth.getCurrentUser();
+        if (user != null)
+        {
+            //user is signed in, Stay here.
+            //mProfileTv.setText(user.getEmail());
+
+        }
+        else
+        {
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            getActivity().finish();
+
+        }
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);//to show menu option in fragment
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.menu_main,menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        if (item.getItemId() == R.id.action_logout)
+        {
+            firebaseAuth.signOut();
+            CheckUserStatus();
+
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
 }
