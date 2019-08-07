@@ -1,6 +1,7 @@
 package com.example.socialnetwork.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.socialnetwork.Chat.ChatActivity;
 import com.example.socialnetwork.Model.User;
 import com.example.socialnetwork.R;
 import com.squareup.picasso.Picasso;
@@ -39,6 +41,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.ViewHolder> 
 
         //get Data
 
+        final String hisUID=userList.get(i).getUid();
         String userImage=userList.get(i).getImage();
         final String userName=userList.get(i).getName();
         String userBusiness=userList.get(i).getBusiness();
@@ -55,7 +58,11 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.ViewHolder> 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, ""+userName, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, ""+userName, Toast.LENGTH_SHORT).show();
+
+                Intent intent=new Intent(context, ChatActivity.class);
+                intent.putExtra("hisUid",hisUID);
+                context.startActivity(intent);
             }
         });
 

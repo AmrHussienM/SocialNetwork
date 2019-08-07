@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.socialnetwork.Fragments.ChatListFragment;
 import com.example.socialnetwork.Fragments.HomeFragment;
 import com.example.socialnetwork.Fragments.ProfileFragment;
 import com.example.socialnetwork.Fragments.UsersFragment;
@@ -82,6 +83,16 @@ public class DashboardActivity extends AppCompatActivity {
 
                             usersFragmentTransaction.replace(R.id.content,usersFragment,"");
                             usersFragmentTransaction.commit();
+                            return true;
+
+                        case R.id.nav_chat:
+
+                            actionBar.setTitle("Messages");
+                            ChatListFragment chatListFragment =new ChatListFragment();
+                            FragmentTransaction chatFragmentTransaction=getSupportFragmentManager().beginTransaction();
+
+                            chatFragmentTransaction.replace(R.id.content,chatListFragment,"");
+                            chatFragmentTransaction.commit();
                             return true;
                     }
 
