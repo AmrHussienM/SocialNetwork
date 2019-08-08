@@ -116,6 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
                             map.put("phone","");
                             map.put("image","");
                             map.put("password",mPassword);
+                            map.put("onlineStatus","online");
                             map.put("univeristy","");
                             map.put("business","");
                             map.put("cover","");
